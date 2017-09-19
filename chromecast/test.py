@@ -2,8 +2,6 @@ from __future__ import print_function
 import time
 import pychromecast
 
-1
-
 chromecasts = pychromecast.get_chromecasts()
 # cast_list = [item.device.friendly_name for item in casts]
 # print (cast_list)
