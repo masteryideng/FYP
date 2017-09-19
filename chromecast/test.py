@@ -6,7 +6,7 @@ chromecasts = pychromecast.get_chromecasts()
 # cast_list = [item.device.friendly_name for item in casts]
 # print (cast_list)
 
-cast = next(item for item in chromecasts if item.device.friendly_name == "Chromecast 2 Gen")
+cast = next(item for item in chromecasts if item.device.friendly_name == "Chromecast 2 Gen 1")
 cast.wait()
 print (cast.device)
 print (cast.status)
