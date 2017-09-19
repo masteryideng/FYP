@@ -7,8 +7,8 @@ import subprocess
 
 
 def startAppium(port=4723):
-    system('appium --port %s &' %str(port))
-    sleep(10)
+    system('appium --port %s &' % str(port))
+    sleep(15)
 
 
 def stopAppium():
