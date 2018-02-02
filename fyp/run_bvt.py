@@ -5,9 +5,11 @@ import os
 
 devices = subprocess.check_output(['VBoxManage list vms'], shell=True)
 print devices
+print 'hahaha'
 device_names = re.compile('"(.*)"').findall(devices)
 device_versions = re.compile('- (\d.\d.\d) -').findall(devices)
 vm_ids = re.compile('{(.*)}').findall(devices)
+print vm_ids
 
 if not os.environ.get('IN_CI'):
     print "Please give the apk file directory being tested:"
