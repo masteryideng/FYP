@@ -1,6 +1,6 @@
 selenium==3.4.3
-pytest==3.2.3
 Pillow==5.0.0
 androguard==3.0.1
 Appium_Python_Client==0.26
 numpy==1.14.0
+pytest==3.4.0

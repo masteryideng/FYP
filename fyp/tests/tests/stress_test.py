@@ -6,10 +6,10 @@ from datetime import datetime
 from time import sleep
 import os
 from html import HTML
+from androguard.core.bytecodes import apk
 
 
 MONKEY_CMD = 'adb shell monkey -p %s %s'
-package = 'com.ionicframework.ezvac538819'
 run_times = int(os.environ['monkey_time'])
 
 
@@ -95,4 +95,11 @@ def gen_html_report(crash_dict, apk_file, simple_log):
 
 def test_monkey():
     log_file = run_monkey()
+    package = get_package(os.environ['app'])
     gen_report(log_file, package)
+
+
+def get_package(path):
+    app = apk.APK(path)
+    packname = app.get_package()
+    return packname

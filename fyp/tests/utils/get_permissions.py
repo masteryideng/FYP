@@ -37,7 +37,7 @@ def get_permissions(path, filename):
 
 def writeToTxt(permission, apktype):
     global count
-    resultdir = os.path.join(rootdir, 'result', apktype)
+    resultdir = os.path.join(os.environ['root_dir'], 'apk_samples', 'result', apktype)
     fm = open(resultdir + '%d' % count + '.txt', 'w')
     for i in permission:
         tmp = i.split('.')
@@ -53,88 +53,3 @@ def get_permissions_main():
     bad_num = check('bad')
     check('test')
     return good_num, bad_num
-
-"""
-def get_apis(path, filename):
-  app = apk.APK(path)
-  app_dex = dvm.DalvikVMFormat(app.get_dex())
-  app_x = analysis.newVMAnalysis(app_dex)
-  methods = set()
-  cs = [cc.get_name() for cc in app_dex.get_classes()]
-
-  for method in app_dex.get_methods():
-    g = app_x.get_method(method)
-    if method.get_code() == None:
-      continue
-
-    for i in g.get_basic_blocks().get():
-      for ins in i.get_instructions():
-        output = ins.get_output()
-        match = re.search(r'(L[^;]*;)->[^\(]*\([^\)]*\).*', output)
-        if match and match.group(1) not in cs:
-          methods.add(match.group())
-
-  methods = list(methods)
-  methods.sort()
-  print "methods:"+"\n"
-  print methods
-  str = "Methods:"
-  file = methods
-  writeToTxt(str, file, filename)
-  return methods
-
-
-def get_providers(path, filename):
-    app = apk.APK(path)
-    providers = app.get_providers()
-    print "providers:"+"\n"
-    print providers
-    str = "Providers:"
-    file = providers
-    writeToTxt(str, file, filename)
-    return providers
-
-
-def get_package(path, filename):
-    app = apk.APK(path)
-    packname = app.get_package()
-    print "packageName:"+"\n"
-    print packname
-    str = "PackageName:"
-    file = packname
-    writeToTxt(str, file, filename)
-    return packname
-
-
-def get_activities(path, filename):
-    app = apk.APK(path)
-    activitys = app.get_activities()
-    print "ActivityName:"+"\n"
-    print activitys
-    str = "Activitys:"
-    file = activitys
-    writeToTxt(str, file, filename)
-    return activitys
-
-
-def get_receivers(path, filename):
-    app = apk.APK(path)
-    receivers = app.get_receivers()
-    print "Receivers:"+"\n"
-    print receivers
-    str = "Receivers:"
-    file = receivers
-    writeToTxt(str, file, filename)
-    return receivers
-
-
-def get_services(path, filename):
-    app = apk.APK(path)
-    services = app.get_services()
-    print "Services:"+"\n"
-    print services
-    str = "Services:"
-    file = services
-    writeToTxt(str, file, filename)
-    return services
-"""
