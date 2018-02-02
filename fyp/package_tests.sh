@@ -8,4 +8,4 @@ find . -name '*.pyc' -exec rm -f {} +
 find . -name 'report.html' -exec rm -f {} +
 find . -name 'assets' -type d -exec rm -r {} +
 
-pip freeze > requirements.txt
+pipreqs --force ./

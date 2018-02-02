@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf8 -*-
+import time
+import os
 
 
 class BasePage:
@@ -15,3 +17,19 @@ class BasePage:
         self.driver = driver
         self.driver.implicitly_wait(self.IMPLICIT_WAIT_TIME)
         self.timeout = self.TIMEOUT
+        self.screenshot()
+
+    def screenshot(self):
+        file_full_path = 'screenshots/%s_%s.png' % (self.get_name(), str(time.time()))
+        self.driver.get_screenshot_as_file(file_full_path)
+
+    def get_name(self):
+        return self.__class__.__name__
+
+    def scroll_down(self):
+        window_size = self.driver.get_window_size()
+        width = window_size.get("width")
+        height = window_size.get("height")
+        self.driver.swipe(width*0.5, height*0.75, width*0.5, height*0.25, 1000)
+        time.sleep(3)
+        self.screenshot()
