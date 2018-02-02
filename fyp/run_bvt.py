@@ -4,6 +4,7 @@ import pytest
 import os
 
 devices = subprocess.check_output(['VBoxManage list vms'], shell=True)
+print devices
 device_names = re.compile('"(.*)"').findall(devices)
 device_versions = re.compile('- (\d.\d.\d) -').findall(devices)
 vm_ids = re.compile('{(.*)}').findall(devices)
