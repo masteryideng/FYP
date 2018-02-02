@@ -22,6 +22,7 @@ if not os.environ.get('IN_CI'):
     for i in xrange(len(device_names)):
         print "%d: %s" % (i+1, device_names[i])
     os.environ['device_no'] = raw_input()
+    os.environ['apk_dir'] = '/Users/MasterYideng/Desktop/apk_samples'
 
 
 subprocess.Popen('open -a /Applications/Genymotion.app/Contents/MacOS/player.app --args --vm-name %s' % vm_ids[int(os.environ['device_no'])-1], shell=True)

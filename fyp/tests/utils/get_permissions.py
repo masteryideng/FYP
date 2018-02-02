@@ -5,8 +5,7 @@ import re
 import os
 import sys
 
-path = os.environ['root_dir']
-rootdir = os.path.join(path, 'apk_samples')
+rootdir = os.environ['apk_dir']
 
 
 def check(apktype):
