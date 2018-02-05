@@ -13,7 +13,7 @@ MONKEY_CMD = 'adb shell monkey -p %s %s'
 run_times = int(os.environ['monkey_time'])
 
 
-def run_monkey():
+def run_monkey(package):
 
     curr_time = datetime.now().strftime('%Y-%m-%d_%H_%M_%S')
     log_file = 'run_monkey_%s.log' % curr_time
@@ -61,7 +61,7 @@ def gen_report(log_file, apk_file):
                 simple_log.append(l)
 
     gen_html_report(crash_dict, apk_file, simple_log)
-    print crash_dict
+    #print crash_dict
 
 
 def gen_html_report(crash_dict, apk_file, simple_log):
@@ -94,9 +94,11 @@ def gen_html_report(crash_dict, apk_file, simple_log):
 
 
 def test_monkey():
-    log_file = run_monkey()
+    print '\n------Monkey Test Started!------'
     package = get_package(os.environ['app'])
+    log_file = run_monkey(package)
     gen_report(log_file, package)
+    print '------Monkey Test Finished Successfully, with running times %d' % (run_times*1000)
 
 
 def get_package(path):

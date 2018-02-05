@@ -37,6 +37,7 @@ def trainNB0(trainMatrix):
 
 
 def test_security():
+    print '\n------Security Test Started!------'
     good_num, bad_num = get_permissions_main()
 
     docList = []  # the permissions of each app seperately
@@ -74,5 +75,6 @@ def test_security():
             result1 += (np.log(testVec[i]) + np.log(pMat_good[i]))
         if testVec[i] != 0 and pMat_bad[i] != 0:
             result2 += (np.log(testVec[i]) + np.log(pMat_bad[i]))
-    print result2, result1
+    #print result2, result1
     assert result1 >= result2
+    print '------Security Test Finished Successfully, with similarity to good %d vs similarity to bad %d------' % (result1, result2)

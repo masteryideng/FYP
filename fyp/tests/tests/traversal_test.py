@@ -11,9 +11,10 @@ global iteration_time
 iteration_time = 0
 
 
-class UITest(BaseTest):
+class TraversalTest(BaseTest):
 
-    def test_map_page(self):
+    def test_all_page(self):
+        print '\n------Traversal Test Started!------'
         sleep(10)
         clickables, clickables_name, current_page = self.get_clickables()
         accessibility_id, index = self.click_current_page(current_page)
@@ -21,8 +22,9 @@ class UITest(BaseTest):
         if result is True:
             print 'Traversal Finished Successfully'
             self.tearDown()
-        print visited
-        print pages
+        #print visited
+        #print pages
+        print '------Traversal Test Finished Successfully, with all clicked buttons in pageviews stored under screenshots/traversal folder------'
 
     def click_current_page(self, current_page):
         accessibility_id, index = self.find_not_repeated(current_page)
