@@ -33,7 +33,6 @@ if not os.environ.get('IN_CI'):
 '''
 
 """start tests"""
-copyfile(os.environ['app'], '/apk_samples/android_debug.apk')
 os.environ['apk_dir'] = '/Users/MasterYideng/Desktop/apk_samples'
 os.environ['root_dir'] = os.getcwd()
 test_script_path = os.path.join(os.environ['root_dir'], 'tests', 'tests')
