@@ -10,7 +10,7 @@ from BeautifulSoup import BeautifulSoup
 
 """start tests"""
 os.environ['root_dir'] = os.getcwd()
-# os.environ['app'] = os.path.join(os.environ['root_dir'], 'android-debug.apk')
+os.environ['app'] = os.path.join(os.environ['root_dir'], 'android-debug.apk')
 test_script_path = os.path.join(os.environ['root_dir'], 'tests', 'tests', 'security_test.py')
 pytest.main(['-s', test_script_path, '--html=bvt_report.html'])
 
