@@ -34,13 +34,7 @@ if not os.environ.get('IN_CI'):
 
 """start tests"""
 os.environ['apk_dir'] = '/Users/MasterYideng/Desktop/apk_samples'
-os.environ['platformVersion'] = sys.argv[1]
-os.environ['deviceName'] = sys.argv[2]
-os.environ['traversal_time'] = sys.argv[3]
-os.environ['monkey_time'] = sys.argv[4]
-
 os.environ['root_dir'] = os.getcwd()
-os.environ['app'] = os.path.join(os.environ['root_dir'], 'apk_samples', 'android-debug.apk')
 test_script_path = os.path.join(os.environ['root_dir'], 'tests', 'tests')
 pytest.main(['-s', test_script_path, '--html=bvt_report.html'])
 
