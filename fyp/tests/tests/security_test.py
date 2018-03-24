@@ -1,6 +1,10 @@
 from numpy import *
 import numpy as np
 from ..utils.get_permissions import *
+from html import HTML
+from datetime import datetime
+from androguard.core.bytecodes import apk
+
 
 path = os.environ['root_dir']
 rootdir = os.path.join(path, 'apk_samples', 'result')
@@ -29,7 +33,7 @@ def setOfWords2Vec(vocabList, inputSet):
 
 def trainNB0(trainMatrix):
     numTrainDocs = len(trainMatrix)  # how many trainees
-    numWords = len(trainMatrix[0])  #each trainee how many permissions
+    numWords = len(trainMatrix[0])  # each trainee how many permissions
     pNum = zeros(numWords)
     for i in range(numTrainDocs):
         pNum += trainMatrix[i]
@@ -37,7 +41,6 @@ def trainNB0(trainMatrix):
 
 
 def test_security():
-    print '\n------Security Test Started!------'
     good_num, bad_num = get_permissions_main()
 
     docList = []  # the permissions of each app seperately
@@ -75,6 +78,36 @@ def test_security():
             result1 += (np.log(testVec[i]) + np.log(pMat_good[i]))
         if testVec[i] != 0 and pMat_bad[i] != 0:
             result2 += (np.log(testVec[i]) + np.log(pMat_bad[i]))
-    #print result2, result1
+    package = get_package(os.environ['app'])
+    result_good = '%.2f%%' % 100*(result1/(result1+result2))
+    result_bad = '%.2f%%' % 100*(result2/(result1+result2))
+    gen_html_report(package, result_good, result_bad)
     assert result1 >= result2
-    print '------Security Test Finished Successfully, with similarity to good %d vs similarity to bad %d------' % (result1, result2)
+
+
+def gen_html_report(apk_file, result_good, result_bad):
+    h = HTML()
+
+    h.h2('Security Test Report')
+    h.li(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    h.li(apk_file)
+
+    h.br
+
+    t = h.table(border='1')
+    r = t.tr
+    r.th('Similarity to Good')
+    r.th('Similarity to Malware')
+
+    r = t.tr
+    r.td(result_good)
+    r.td(result_bad)
+
+    with open('security_test_report.html', 'w') as r:
+        r.write(str(h))
+
+
+def get_package(path):
+    app = apk.APK(path)
+    packname = app.get_package()
+    return packname

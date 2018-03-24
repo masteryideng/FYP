@@ -89,16 +89,14 @@ def gen_html_report(crash_dict, apk_file, simple_log):
         h.code(str(l))
     h.pre()
 
-    with open('monkey_test_reoprt.html', 'w') as r:
+    with open('monkey_test_report.html', 'w') as r:
         r.write(str(h))
 
 
 def test_monkey():
-    print '\n------Monkey Test Started!------'
     package = get_package(os.environ['app'])
     log_file = run_monkey(package)
     gen_report(log_file, package)
-    print '------Monkey Test Finished Successfully, with running times %d' % (run_times*1000)
 
 
 def get_package(path):

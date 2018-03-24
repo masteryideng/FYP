@@ -1,30 +1,27 @@
 from base_tests.base_test import BaseTest
 from time import sleep
+import time
 from PIL import Image, ImageDraw
 import os
 
 visited = []
 pages = {}
 clickable_number = {}
-maximum_iteration_times = int(os.environ['traversal_time'])
-global iteration_time
-iteration_time = 0
+maximum_iteration_time = int(os.environ['traversal_time'])
 
 
 class TraversalTest(BaseTest):
 
     def test_all_page(self):
-        print '\n------Traversal Test Started!------'
-        sleep(10)
+        start_time = time.time()
         clickables, clickables_name, current_page = self.get_clickables()
         accessibility_id, index = self.click_current_page(current_page)
-        result = self.check_after_click(current_page, index)
+        result = self.check_after_click(current_page, index, start_time)
         if result is True:
             print 'Traversal Finished Successfully'
             self.tearDown()
         #print visited
         #print pages
-        print '------Traversal Test Finished Successfully, with all clicked buttons in pageviews stored under screenshots/traversal folder------'
 
     def click_current_page(self, current_page):
         accessibility_id, index = self.find_not_repeated(current_page)
@@ -37,26 +34,25 @@ class TraversalTest(BaseTest):
             current_page['if_clicked'][index] = True
             return accessibility_id, index
 
-    def check_after_click(self, previous_page, index):
-        global iteration_time
+    def check_after_click(self, previous_page, index, start_time):
         new_clickables, new_clickables_name, new_page = self.get_clickables()
         previous_page['if_all_clicked'][index] = True
         for i in range(len(new_page['if_clicked'])):
             if new_page['if_clicked'][i] is False:
                 previous_page['if_all_clicked'][index] = False
         accessibility_id, index = self.click_current_page(new_page)
-        if accessibility_id is None or iteration_time == maximum_iteration_times:
+        time_passed = time.time() - start_time
+        if accessibility_id is None or time_passed >= maximum_iteration_time:
             return True
         else:
-            self.check_after_click(new_page, index)
-            iteration_time += 1
+            self.check_after_click(new_page, index, start_time)
 
     def get_clickables(self):
         current_page = {}
         all_page_clickables = []
         all_elements = self.driver.find_elements_by_xpath("//*")
         clickables = [item for item in all_elements if item.get_attribute('clickable') == 'true']
-        clickables_name = [item.get_attribute('name') for item in clickables]
+        clickables_name = [item.get_attribute('text') for item in clickables]
 
         for item in pages.values():
             all_page_clickables.append(item['clickables'])
@@ -95,7 +91,7 @@ class TraversalTest(BaseTest):
         key = [k for k, v in pages.items() if v == current_page]
         page = key[0]
         path = 'screenshots/traversal/%s.png' % page
-        element = self.driver.find_element_by_accessibility_id(name)
+        element = self.driver.find_element_by_android_uiautomator('new UiSelector().text("%s")' % name)
         x1 = element.location['x']
         y1 = element.location['y']
         x2 = x1 + element.size['width']

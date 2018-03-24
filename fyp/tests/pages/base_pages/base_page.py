@@ -20,7 +20,7 @@ class BasePage:
         self.screenshot()
 
     def screenshot(self):
-        file_full_path = 'screenshots/%s_%s.png' % (self.get_name(), str(time.time()))
+        file_full_path = 'screenshots/ui/%s_%s.png' % (self.get_name(), str(time.time()))
         self.driver.get_screenshot_as_file(file_full_path)
 
     def get_name(self):

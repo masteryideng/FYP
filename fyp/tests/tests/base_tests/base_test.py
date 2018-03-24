@@ -5,7 +5,9 @@ import os
 import unittest
 from appium import webdriver
 from tests.pages import *
+from time import sleep
 from tests.utils.appium_wrapper import startAppium, stopAppium
+from selenium.common.exceptions import NoSuchElementException
 
 
 PATH = lambda p: os.path.abspath(
@@ -21,9 +23,15 @@ class BaseTest(unittest.TestCase):
         desired_caps = {}
         desired_caps['platformName'] = 'Android'
         desired_caps['platformVersion'] = os.environ['platformVersion']
-        desired_caps['deviceName'] = '192.168.56.101:5555'
+        desired_caps['deviceName'] = os.environ['deviceName']
         desired_caps['app'] = os.environ['app']
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        sleep(10)
+
+        try:
+            self.driver.find_element_by_id('com.android.packageinstaller:id/permission_allow_button').click()
+        except NoSuchElementException:
+            pass
 
     def tearDown(self):
         """Shuts down the driver."""
