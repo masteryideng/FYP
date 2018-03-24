@@ -1,13 +1,13 @@
 from numpy import *
 import numpy as np
-from ..utils.get_permissions import *
+from ..utils.get_permissions import get_test_permission
 from html import HTML
 from datetime import datetime
 from androguard.core.bytecodes import apk
-
+import os
 
 path = os.environ['root_dir']
-rootdir = os.path.join(path, 'apk_samples', 'result')
+rootdir = os.path.join(path, 'permissions')
 
 
 def textParse(bigString):    # input is big string, output is word list
@@ -41,37 +41,37 @@ def trainNB0(trainMatrix):
 
 
 def test_security():
-    good_num, bad_num = get_permissions_main()
 
+    get_test_permission('android-debug.apk')
     docList = []  # the permissions of each app seperately
-    for i in range(1,good_num+1):
-        wordList = textParse(open(rootdir + '/good%d.txt' % i).read())
+    for i in range(1,501):
+        wordList = textParse(open(rootdir + '/good/%d.txt' % i).read())
         docList.append(wordList)
-    for i in range(1, bad_num+1):
-        wordList = textParse(open(rootdir + '/bad%d.txt' % i).read())
+    for i in range(1, 501):
+        wordList = textParse(open(rootdir + '/bad/%d.txt' % i).read())
         docList.append(wordList)
-    wordList = textParse(open(rootdir + '/test1.txt').read())
+    wordList = textParse(open(rootdir + '/test/1.txt').read())
     docList.append(wordList)
     vocabList = createVocabList(docList)  # include all the permissions
 
-    trainingSet = range(good_num)
+    trainingSet = range(500)
     trainMat=[]
     for docIndex in trainingSet:
         trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))
     pMat_good = trainNB0(array(trainMat))
     # print pMat_good
 
-    trainingSet = range(good_num, good_num+bad_num)
+    trainingSet = range(500, 1000)
     trainMat=[]
     for docIndex in trainingSet:
         trainMat.append(setOfWords2Vec(vocabList, docList[docIndex]))
     pMat_bad = trainNB0(array(trainMat))
     # print pMat_bad
 
-    wordList = textParse(open(rootdir + '/test1.txt').read())
+    wordList = textParse(open(rootdir + '/test/1.txt').read())
     docList.append(wordList)
 
-    testVec = setOfWords2Vec(vocabList, docList[good_num+bad_num+1])
+    testVec = setOfWords2Vec(vocabList, docList[1001])
     result1 = 1; result2 = 1
     for i in range(len(vocabList)):
         if testVec[i] != 0 and pMat_good[i] != 0:
@@ -79,8 +79,8 @@ def test_security():
         if testVec[i] != 0 and pMat_bad[i] != 0:
             result2 += (np.log(testVec[i]) + np.log(pMat_bad[i]))
     package = get_package(os.environ['app'])
-    result_good = '%.2f%%' % 100*(result1/(result1+result2))
-    result_bad = '%.2f%%' % 100*(result2/(result1+result2))
+    result_good = '%.2f%%' % (100*result1/(result1+result2))
+    result_bad = '%.2f%%' % (100*result2/(result1+result2))
     gen_html_report(package, result_good, result_bad)
     assert result1 >= result2
 
