@@ -1,4 +1,13 @@
-.pyc
+*.pyc
 .idea
 __pycache__
 .DS_Store
+.pytest_cache/
+android-debug.apk
+assets/
+bvt_report.html
+data
+permissions/test/1.txt
+play.py
+result.txt
+security_test_report.html
