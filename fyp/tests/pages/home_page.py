@@ -25,3 +25,4 @@ class HomePage(BasePage):
         self.driver.find_element_by_accessibility_id(self.SELECTED_PLACE).click()
         sleep(3)
         return PlacesPage(self.driver)
+

@@ -71,21 +71,18 @@ def test_security():
     global p0
     get_test_permission('android-debug.apk')
 
-    docList=[]; classList = []; fullText =[]
+    docList=[]; classList = []
     for i in range(1,501):
         wordList = textParse(open(rootdir + '/bad/%d.txt' % i).read())
         docList.append(wordList)
-        fullText.extend(wordList)
         classList.append(1)
         wordList = textParse(open(rootdir + '/good/%d.txt' % i).read())
         docList.append(wordList)
-        fullText.extend(wordList)
         classList.append(0)
     wordList = textParse(open(rootdir + '/test/1.txt').read())
     docList.append(wordList)
-    fullText.extend(wordList)
-
     vocabList = createVocabList(docList)
+
     trainingSet = range(500); testSet=[1000]
     trainMat=[]; trainClasses = []
     for docIndex in trainingSet:

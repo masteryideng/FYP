@@ -7,6 +7,7 @@ import logging
 class PlacesPage(BasePage):
 
     OK = 'OK'
+    PLACE = 'new UiSelector().text("%s")'
 
     def click_ok_btn(self):
         btn = self.driver.find_element_by_accessibility_id(self.OK)

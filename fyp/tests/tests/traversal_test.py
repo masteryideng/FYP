@@ -18,7 +18,6 @@ class TraversalTest(BaseTest):
         accessibility_id, index = self.click_current_page(current_page)
         result = self.check_after_click(current_page, index, start_time)
         if result is True:
-            print 'Traversal Finished Successfully'
             self.tearDown()
         #print visited
         #print pages

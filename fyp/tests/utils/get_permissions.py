@@ -15,7 +15,6 @@ def check(apktype):
             thefile = os.path.join(dirpath, filename)
             apkfile = os.path.split(thefile)[1]
             apkname = os.path.splitext(apkfile)[0]
-            # print apkfile
             try:
                 if os.path.splitext(thefile)[1] == ".apk":
                     get_permissions(thefile, apktype)

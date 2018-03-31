@@ -9,8 +9,8 @@ from html import HTML
 from androguard.core.bytecodes import apk
 
 
-MONKEY_CMD = 'adb shell monkey -p %s %s'
-run_times = int(os.environ['monkey_time'])
+MONKEY_CMD = 'adb shell monkey -p %s -v %s'
+run_times = int(100)
 
 
 def run_monkey(package):
@@ -19,7 +19,7 @@ def run_monkey(package):
     log_file = 'run_monkey_%s.log' % curr_time
     with open(log_file, 'w') as f:
         for t in xrange(1, run_times):
-            monkey_cmd = MONKEY_CMD % (package, '1000')
+            monkey_cmd = MONKEY_CMD % (package, '500')
             p = subprocess.Popen(monkey_cmd.split(' '), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = p.communicate()
             f.write('*' * 10 + '\n')
