@@ -10,7 +10,7 @@ from androguard.core.bytecodes import apk
 
 
 MONKEY_CMD = 'adb shell monkey -p %s -v %s'
-run_times = os.environ['monkey_time']
+run_times = int(os.environ['monkey_time'])
 
 
 def run_monkey(package):
