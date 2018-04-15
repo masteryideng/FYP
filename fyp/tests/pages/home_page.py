@@ -7,12 +7,12 @@ from time import sleep
 
 class HomePage(BasePage):
 
-    MAP = 'navigateMap'
-    PLACES_TO_VISIT = 'listPlaces to Visit'
-    SELECTED_PLACE = 'list2Selected Place'
+    MAP = 'tab-t0-0'
+    PLACES_TO_VISIT = 'tab-t0-1'
+    SELECTED_PLACE = 'tab-t0-2'
 
     def click_map_tab(self):
-        self.driver.find_element_by_accessibility_id(self.MAP).click()
+        self.driver.find_element_by_id(self.MAP).click()
         sleep(3)
         return MapPage(self.driver)
 
@@ -25,4 +25,3 @@ class HomePage(BasePage):
         self.driver.find_element_by_accessibility_id(self.SELECTED_PLACE).click()
         sleep(3)
         return PlacesPage(self.driver)
-

@@ -33,3 +33,9 @@ class BasePage:
         self.driver.swipe(width*0.5, height*0.75, width*0.5, height*0.25, 1000)
         time.sleep(3)
         self.screenshot()
+
+    def get_element_center(self, element):
+        """Calculates the center of inputted element and returns it as a tuple (x, y)."""
+        element_mid_width = element.size['width'] / 2
+        element_mid_height = element.size['height'] / 2
+        return element.location['x'] + element_mid_width, element.location['y'] + element_mid_height

@@ -6,11 +6,14 @@ import logging
 
 class PlacesPage(BasePage):
 
-    OK = 'OK'
+    OK = 'new UiSelector().text("OK ")'
     PLACE = 'new UiSelector().text("%s")'
 
     def click_ok_btn(self):
-        btn = self.driver.find_element_by_accessibility_id(self.OK)
-        btn.click()
+        self.driver.find_element_by_android_uiautomator(self.OK).click()
         sleep(3)
         return PlacesPage(self.driver)
+
+    def is_place_displayed(self, place):
+        location = self.driver.find_element_by_android_uiautomator(self.PLACE % place)
+        return location.is_displayed()
