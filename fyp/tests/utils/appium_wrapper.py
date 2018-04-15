@@ -8,7 +8,7 @@ import os
 
 def startAppium(port=4723):
     stopAppium(port)
-    os.system('appium --port %s &' % port)
+    os.system('appium --port %s --log-level error  &' % port)
     sleep(20)
 
 
