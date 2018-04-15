@@ -28,4 +28,4 @@ class UITest(BaseTest):
         self.home = HomePage(self.driver)
         list_page = self.home.click_list_tab()
         list_page.click_place('Singapore Zoo')
-        self.assertTrue(list_page.is_place_displayed('Singapore Zoo'))
+        self.assertTrue(list_page.is_detail_displayed('Singapore Zoo'))
