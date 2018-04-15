@@ -7,7 +7,6 @@ from appium import webdriver
 from tests.pages import *
 from time import sleep
 from tests.utils.appium_wrapper import *
-import random
 
 
 PATH = lambda p: os.path.abspath(
@@ -34,13 +33,8 @@ class BaseTest(unittest.TestCase):
         desired_caps['platformVersion'] = os.environ['platformVersion']
         desired_caps['deviceName'] = os.environ['deviceName']
         desired_caps['app'] = os.environ['app']
-
         self.driver = webdriver.Remote('http://localhost:%s/wd/hub' % self.port, desired_caps)
-
-        try:
-            self.driver.switch_to.alert.accept()
-        except Exception:
-            pass
+        sleep(10)
 
     def tearDown(self):
         """Shuts down the driver."""

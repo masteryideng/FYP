@@ -17,3 +17,7 @@ class PlacesPage(BasePage):
     def is_place_displayed(self, place):
         location = self.driver.find_element_by_android_uiautomator(self.PLACE % place)
         return location.is_displayed()
+
+    def is_notification_displayed(self):
+        notification = self.driver.find_element_by_android_uiautomator(self.OK)
+        return notification.is_displayed()

@@ -6,8 +6,7 @@ __pycache__
 android-debug.apk
 assets/
 bvt_report.html
-data
 permissions/test/1.txt
-play.py
+local_run.py
 result.txt
 security_test_report.html

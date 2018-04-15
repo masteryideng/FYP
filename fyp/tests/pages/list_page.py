@@ -8,12 +8,13 @@ class ListPage(BasePage):
 
     SHARE = 'new UiSelector().textContains("share")'
     PLACE = 'new UiSelector().text("%s")'
+    FACEBOOK = 'new UiSelector().textContains("Facebook")'
 
     def add_place(self, place):
         location = self.driver.find_element_by_android_uiautomator(self.PLACE % place)
         center = self.get_element_center(location)
         new_center = (center[0]+435, center[1]+24)
-        self.driver.tap(new_center, 1)
+        self.driver.tap([new_center], 1)
         sleep(3)
         return ListPage(self.driver)
 
@@ -30,3 +31,7 @@ class ListPage(BasePage):
     def is_detail_displayed(self, place):
         location = self.driver.find_element_by_android_uiautomator(self.PLACE % place)
         return location.is_displayed()
+
+    def is_facebook_displayed(self):
+        facebook = self.driver.find_element_by_android_uiautomator(self.FACEBOOK)
+        return facebook.is_displayed()

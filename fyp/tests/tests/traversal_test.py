@@ -19,8 +19,6 @@ class TraversalTest(BaseTest):
         result = self.check_after_click(current_page, index, start_time)
         if result is True:
             self.tearDown()
-        #print visited
-        #print pages
 
     def click_current_page(self, current_page):
         accessibility_id, index = self.find_not_repeated(current_page)

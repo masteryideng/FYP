@@ -5,27 +5,42 @@ from selenium.common.exceptions import NoSuchElementException
 
 class UITest(BaseTest):
 
-    allow_button = 'com.android.packageinstaller:id/permission_allow_button'
-
     def test_add_place(self):
+        self.home = HomePage(self.driver)
         try:
-            self.driver.find_element_by_id(self.allow_button).click()
+            self.home.click_allow_button()
         except NoSuchElementException:
             pass
-
-        self.home = HomePage(self.driver)
         list_page = self.home.click_list_tab()
-        list_page.add_place('Singapore Zoo')
+        list_page.add_place('Botanic Garden')
         places_page = self.home.click_places_tab()
-        self.assertTrue(places_page.is_place_displayed('Singapore Zoo'))
+        self.assertTrue(places_page.is_place_displayed('Botanic Garden'))
 
     def test_place_detail(self):
+        self.home = HomePage(self.driver)
         try:
-            self.driver.find_element_by_id(self.allow_button).click()
+            self.home.click_allow_button()
         except NoSuchElementException:
             pass
-
-        self.home = HomePage(self.driver)
         list_page = self.home.click_list_tab()
-        list_page.click_place('Singapore Zoo')
-        self.assertTrue(list_page.is_detail_displayed('Singapore Zoo'))
+        list_page.click_place('Botanic Garden')
+        self.assertTrue(list_page.is_detail_displayed('Botanic Garden'))
+
+    def test_share(self):
+        self.home = HomePage(self.driver)
+        try:
+            self.home.click_allow_button()
+        except NoSuchElementException:
+            pass
+        list_page = self.home.click_list_tab()
+        list_page.click_share()
+        self.assertTrue(list_page.is_facebook_displayed())
+
+    def test_empty_places(self):
+        self.home = HomePage(self.driver)
+        try:
+            self.home.click_allow_button()
+        except NoSuchElementException:
+            pass
+        places_page = self.home.click_places_tab()
+        self.assertTrue(places_page.is_notification_displayed())
