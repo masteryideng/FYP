@@ -17,11 +17,11 @@ class HomePage(BasePage):
         return MapPage(self.driver)
 
     def click_list_tab(self):
-        self.driver.find_element_by_accessibility_id(self.PLACES_TO_VISIT).click()
+        self.driver.find_element_by_id(self.PLACES_TO_VISIT).click()
         sleep(3)
         return ListPage(self.driver)
 
     def click_places_tab(self):
-        self.driver.find_element_by_accessibility_id(self.SELECTED_PLACE).click()
+        self.driver.find_element_by_id(self.SELECTED_PLACE).click()
         sleep(3)
         return PlacesPage(self.driver)
