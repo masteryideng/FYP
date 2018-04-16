@@ -1,8 +1,8 @@
 from base_tests.base_test import BaseTest
-from time import sleep
 import time
 from PIL import Image, ImageDraw
 import os
+
 
 visited = []
 pages = {}
@@ -50,6 +50,7 @@ class TraversalTest(BaseTest):
         all_elements = self.driver.find_elements_by_xpath("//*")
         clickables = [item for item in all_elements if item.get_attribute('clickable') == 'true']
         clickables_name = [item.get_attribute('text') for item in clickables]
+        clickables_name = [item for item in clickables_name if item != '']
 
         for item in pages.values():
             all_page_clickables.append(item['clickables'])
