@@ -1,7 +1,5 @@
 from tests.pages.base_pages.base_page import BasePage
 from time import sleep
-from selenium.common.exceptions import NoSuchElementException
-import logging
 
 
 class ListPage(BasePage):

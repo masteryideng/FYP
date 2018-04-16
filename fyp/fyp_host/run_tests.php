@@ -6,6 +6,7 @@ if ($_FILES["file"]["type"] == "application/vnd.android.package-archive")
     $deviceName=$_POST['deviceName'];
     $traversal_time=$_POST['traversal_time'];
     $monkey_time=$_POST['monkey_time'];
+    $schedule=$_POST['schedule'];
 
     if ($_FILES["file"]["error"] > 0)
     {
@@ -13,20 +14,21 @@ if ($_FILES["file"]["type"] == "application/vnd.android.package-archive")
     }
     else
     {
-        if (file_exists("temp/" . $_FILES["file"]["name"]))
+        move_uploaded_file($_FILES["file"]["tmp_name"],"temp/" . "android-debug.apk");
+        $file=realpath("temp/" . "android-debug.apk");
+
+        if (preg_match("/[A-Z0-9\*]+\.[A-Z0-9\*]+\.[A-Z0-9\*]+\.[A-Z0-9\*]+\.[A-Z0-9\*]+/", $schedule))
         {
-            echo "file exists";
+            $test_type = "Scheduled_Test/";
+            $command = "python2.7 run_scheduled_tests.py $platformVersion $deviceName $traversal_time $monkey_time $file $schedule";
         }
         else
         {
-            move_uploaded_file($_FILES["file"]["tmp_name"],
-                "temp/" . $_FILES["file"]["name"]);
+            $test_type = "Immediately_Test/";
+            $command = "python2.7 run_immediate_tests.py $platformVersion $deviceName $traversal_time $monkey_time $file";
         }
-        $file=realpath("temp/android-debug.apk");
-        $command = "python2.7 run_tests.py $platformVersion $deviceName $traversal_time $monkey_time $file";
         $output = intval(shell_exec($command));
-
-        $url = 'http://localhost:8080/job/Immediately_Test/'.$output.'/console';
+        $url = 'http://localhost:8080/job/'.$test_type.$output.'/console';
         header('Location: ' . $url);
     }
 }

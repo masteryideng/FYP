@@ -36,9 +36,6 @@ function status($test)
 }
 
 $workspace = '/Users/Shared/Jenkins/Home/workspace/Immediately_Test/fyp/';
-copy($workspace.'bvt_report.html', 'temp/bvt_report.html');
-copy($workspace.'security_test_report.html', 'temp/security_test_report.html');
-copy($workspace.'monkey_test_report.html', 'temp/monkey_test_report.html');
 copy($workspace.'result.txt', 'temp/result.txt');
 
 $command = "python2.7 last_build.py";
@@ -58,16 +55,20 @@ $security = status('security');
         <nav>
             <span class="cd-marker item-1"></span>
             <ul>
-                <li class="selected"><a href="temp/monkey_test_report.html" target="_blank"><div class="image-icon"><img src=<?php echo $stress ?>></div><h6>Stress Test</h6></a></li>
-                <li><a href="temp/security_test_report.html" target="_blank"><div class="image-icon"><img src=<?php echo $security ?>></div><h6>Security Test</h6></a></li>
-                <li><a href="#0"><div class="image-icon"><img src=<?php echo $ui ?>></div><h6>UI Test</h6></a></li>
-                <li><a href="#0"><div class="image-icon"><img src=<?php echo $traversal ?>></div><h6>Traversal Test</h6></a></li>
+                <li><a href="http://localhost:8080/job/Immediately_Test/ws/fyp/monkey_test_report.html" target="_blank"><div class="image-icon">
+                            <img src=<?php echo $stress ?>></div><h6>Stress Test</h6></a></li>
+                <li><a href="http://localhost:8080/job/Immediately_Test/ws/fyp/security_test_report.html" target="_blank"><div class="image-icon">
+                            <img src=<?php echo $security ?>></div><h6>Security Test</h6></a></li>
+                <li><a href="screenshot.php?type=ui" target="_blank"><div class="image-icon">
+                            <img src=<?php echo $ui ?>></div><h6>UI Test</h6></a></li>
+                <li><a href="screenshot.php?type=traversal" target="_blank"><div class="image-icon">
+                            <img src=<?php echo $traversal ?>></div><h6>Traversal Test</h6></a></li>
             </ul>
         </nav>
     </div> <!-- .cd-slider-nav -->
 
     <div class="heading">
-        <h1><a href='temp/bvt_report.html' target="_blank">Test Report</a></h1>
+        <h1><a href='http://localhost:8080/job/Immediately_Test/ws/fyp/bvt_report.html' target="_blank">Test Report</a></h1>
     </div>
     <div class="cd-full-width first-slide">
         <div class="container">

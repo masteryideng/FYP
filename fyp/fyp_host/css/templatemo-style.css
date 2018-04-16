@@ -160,7 +160,7 @@ p {
   margin-bottom: 100px;
   margin-top: -80px;
   background-color: #fff;
-  border-top: 15px solid #ffbb05;
+  border-top: 15px solid #0BE093;
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -311,7 +311,7 @@ p {
     margin-bottom: 100px;
     margin-top: -100px;
     background-color: #fff;
-    border-top: 15px solid #ffbb05;
+    border-top: 15px solid #0BE093;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
   }
 
@@ -360,10 +360,7 @@ p {
 */
 
 /* Preload images */
-body:after {
-  content: url(../img/close.png) url(../img/loading.gif) url(../img/prev.png) url(../img/next.png);
-  display: none;
-}
+
 
 body.lb-disable-scrolling {
   overflow: hidden;

@@ -1,6 +1,4 @@
 from tests.pages.base_pages.base_page import BasePage
-from selenium.common.exceptions import NoSuchElementException
-import logging
 
 
 class MapPage(BasePage):

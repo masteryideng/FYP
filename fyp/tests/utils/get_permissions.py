@@ -1,7 +1,5 @@
 # coding=utf-8
-from androguard.core.bytecodes import apk, dvm
-from androguard.core.analysis import analysis
-import re
+from androguard.core.bytecodes import apk
 import os
 import sys
 

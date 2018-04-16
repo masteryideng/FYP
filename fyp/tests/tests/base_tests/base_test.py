@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf8 -*-
 
-import os
 import unittest
 from appium import webdriver
-from tests.pages import *
-from time import sleep
 from tests.utils.appium_wrapper import *
 from selenium.common.exceptions import NoSuchElementException
 

@@ -7,6 +7,6 @@ android-debug.apk
 assets/
 bvt_report.html
 permissions/test/1.txt
-local_run.py
 result.txt
 security_test_report.html
+package_tests.sh

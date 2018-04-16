@@ -1,6 +1,5 @@
 from base_tests.base_test import BaseTest
 from tests.pages.all_pages import *
-from selenium.common.exceptions import NoSuchElementException
 
 
 class UITest(BaseTest):

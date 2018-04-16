@@ -2,7 +2,6 @@
 # -*- coding:utf8 -*-
 
 from time import sleep
-import subprocess
 import os
 
 
